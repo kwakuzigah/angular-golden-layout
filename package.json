@@ -1,49 +1,71 @@
 {
   "name": "angular-golden-layout",
-  "version": "0.0.0",
+  "description": "Angular wrapper library for Golden Layout",
+  "bugs": "https://github.com/kwakuzigah/angular-golden-layout/issues",
   "license": "MIT",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
+  "version": "5.0.0",
+  "main": "./bundles/angular-golden-layout.umd.js",
+  "module": "./dist/angular-golden-layout.es5.js",
+  "typings": "./dist/angular-golden-layout.d.ts",
   "private": true,
+  "tslint": {
+    "extends": "./tslint.json"
+  },
+  "stylelint": {
+    "extends": "./stylelint.json"
+  },
+  "scripts": {
+    "clean": "rm -rf dist bundles",
+    "start": "npm run build && npm run bundle",
+    "watch": "watch --wait=5 'npm run start' src/",
+    "lint": "npm run lint:ts && npm run lint:scss",
+    "build": "npm run build:html && npm run build:css && npm run build:js",
+    "bundle": "npm run bundle:es5 ; npm run bundle:umd ; npm run minify:umd",
+    "prepare": "npm run clean && npm run build && npm run bundle",
+    "lint:ts": "tslint -p src/tsconfig.json \"src/**/*.ts\"",
+    "lint:scss": "stylelint --syntax scss \"src/**/*.scss\"",
+    "build:js": "ngc -p src/tsconfig.json && ngi -c -s dist/",
+    "build:css": "node-sass src/ -o dist/ --source-map=true",
+    "build:html": "cpx --dereference src/lib/*.html dist/lib/",
+    "bundle:es2015": "rollup -c config/rollup-es5.config.js --silent",
+    "bundle:umd": "rollup -c config/rollup-umd.config.js --silent",
+    "minify:umd": "uglifyjs bundles/$npm_package_name.umd.js -o bundles/$npm_package_name.umd.min.js --source-map=\"filename=bundles/$npm_package_name.umd.min.js.map\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kwakuzigah/angular-golden-layout.git"
+  },
   "dependencies": {
-    "@angular/animations": "^5.0.0",
-    "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/forms": "^5.0.0",
-    "@angular/http": "^5.0.0",
-    "@angular/platform-browser": "^5.0.0",
-    "@angular/platform-browser-dynamic": "^5.0.0",
-    "@angular/router": "^5.0.0",
-    "core-js": "^2.4.1",
-    "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14"
+    "golden-layout": "^1.5.9",
+    "jquery": "^3.2.1"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.1",
-    "@angular/compiler-cli": "^5.0.0",
-    "@angular/language-service": "^5.0.0",
-    "@types/jasmine": "~2.5.53",
-    "@types/jasminewd2": "~2.0.2",
-    "@types/node": "~6.0.60",
-    "codelyzer": "^4.0.1",
-    "jasmine-core": "~2.6.2",
-    "jasmine-spec-reporter": "~4.1.0",
-    "karma": "~1.7.0",
-    "karma-chrome-launcher": "~2.1.1",
-    "karma-cli": "~1.0.1",
-    "karma-coverage-istanbul-reporter": "^1.2.1",
-    "karma-jasmine": "~1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.2",
-    "ts-node": "~3.2.0",
-    "tslint": "~5.7.0",
-    "typescript": "~2.4.2"
+    "@angular/common": "^5.1.0",
+    "@angular/compiler": "^5.1.0",
+    "@angular/compiler-cli": "^5.1.0",
+    "@angular/core": "^5.1.0",
+    "@angular/platform-browser": "^5.1.0",
+    "@types/node": "^8.5.0",
+    "angular-inliner-cli": "^1.2.0",
+    "codelyzer": "^4.0.0",
+    "core-js": "^2.5.0",
+    "cpx": "^1.5.0",
+    "node-sass": "^4.7.0",
+    "rollup": "^0.52.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.0",
+    "rxjs": "^5.5.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
+    "stylelint-order": "^0.8.0",
+    "tslint": "^5.8.0",
+    "typescript": "~2.4.0",
+    "uglify-es": "^3.2.0",
+    "watch": "^1.0.0",
+    "zone.js": "^0.8.0"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=5.0.0",
+    "@angular/core": ">=5.0.0"
   }
 }
