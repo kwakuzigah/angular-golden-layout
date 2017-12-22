@@ -27,7 +27,8 @@
       <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
         <!-- <golden-layout *ngIf="type === 'component'" [config]="config" [disabled]="disabled" fxLayout="row" fxLayoutAlign="start strech" fxFlex="auto"></golden-layout> -->
 
-        <div [golden-layout]="config" [disabled]="disabled" style="width: 300px; height: 300px; border: 1px solid black "></div>
+        {{content | json}}
+        <div [golden-layout]="config" [(content)]="content" [componentDefinitions]="componentDefinitions" [disabled]="disabled" style="width: 300px; height: 300px; border: 1px solid black "></div>
       </div>
     </div>
   </div>

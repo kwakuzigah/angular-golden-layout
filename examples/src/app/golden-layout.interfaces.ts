@@ -4,37 +4,25 @@ import * as GoldenLayout from 'golden-layout';
 export const GOLDEN_LAYOUT_CONFIG = new InjectionToken('GOLDEN_LAYOUT_CONFIG');
 
 export const GoldenLayoutEvents = [
-//   'error',
-//   'success',
-//   'sending',
-//   'canceled',
-//   'complete',
-//   'processing',
-
-//   'drop',
-//   'dragStart',
-//   'dragEnd',
-//   'dragEnter',
-//   'dragOver',
-//   'dragLeave',
-
-//   'thumbnail',
-//   'addedFile',
-//   'removedFile',
-//   'uploadProgress',
-//   'maxFilesReached',
-//   'maxFilesExceeded',
-
-//   'successMultiple',
-//   'sendingMultiple',
-//   'canceledMultiple',
-//   'completeMultiple',
-//   'processingMultiple',
-
-//   'reset',
-//   'queueComplete',
-//   'totalUploadProgress'
+  'initialised',
+  'stateChanged',
+  'windowOpened',
+  'windowClosed',
+  'selectionChanged',
+  'itemDestroyed',
+  'itemCreated',
+  'componentCreated',
+  'rowCreated',
+  'columnCreated',
+  'stackCreated',
+  'tabCreated'
 ];
+
+
+export interface GoldenLayoutComponentDefinition {
+  componentName: string;
+  componentType: any;
+}
 
 export class GoldenLayoutConfig implements GoldenLayout.Config {
   settings: GoldenLayout.Settings;
@@ -63,7 +51,7 @@ export class GoldenLayoutConfig implements GoldenLayout.Config {
   }
 }
 export interface GoldenLayoutContentComponentInterface {
-  data: any;
+  state: any;
 }
 
 // export type DropzoneUrlFunction = (files: any) => string;

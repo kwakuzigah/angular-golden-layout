@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { GoldenLayoutConfig } from 'app/golden-layout.interfaces';
+import { GoldenLayoutConfig, GoldenLayoutComponentDefinition } from 'app/golden-layout.interfaces';
 import { GoldenLayoutComponent } from 'app/golden-layout.component';
 import { GoldenLayoutDirective } from 'app/golden-layout.directive';
 import * as GoldenLayout from 'golden-layout';
@@ -18,7 +18,7 @@ export class AppComponent implements AfterViewInit {
   private state: object = { label: 'COCO' };
   title = 'app';
 
-  public config: GoldenLayout.Config = {
+  private config: GoldenLayout.Config = {
       settings:{
         hasHeaders: false,
         constrainDragToContainer: true,
@@ -26,20 +26,26 @@ export class AppComponent implements AfterViewInit {
       },
       dimensions: {
           borderWidth: 1
-      },
-      content: [{
-          type: 'column',
-          content:[{
-              type:'component',
-              componentName: 'test-component',
-              componentState: { label: 'B' }
-          },{
-              type:'component',
-              componentName: 'test-component',
-              componentState: this.state
-          }]
-      }]
+      }
     };
+
+private content: GoldenLayout.ItemConfigType[] = [{
+    type: 'column',
+    content:[{
+        type:'component',
+        componentName: 'test-component',
+        componentState: { label: 'B' }
+    },{
+        type:'component',
+        componentName: 'test-component',
+        componentState: this.state
+    }]
+}];
+
+private componentDefinitions: GoldenLayoutComponentDefinition[] = [{
+    componentName: 'test-component', 
+    componentType: HeroJobAdComponent
+}];
 
 //   @ViewChild(GoldenLayoutComponent) componentRef: GoldenLayoutComponent;
   @ViewChild(GoldenLayoutDirective) directiveRef: GoldenLayoutDirective;
@@ -48,7 +54,5 @@ export class AppComponent implements AfterViewInit {
     this.type = (this.type === 'component') ? 'directive' : 'component';
   }
   ngAfterViewInit(): void {
-      this.directiveRef.registerComponent('test-component', HeroJobAdComponent);
-      this.directiveRef.init();
   }
 }
