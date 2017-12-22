@@ -2,7 +2,7 @@
 	"version": 3,
 	"file": "golden-layout.component.css",
 	"sources": [
-		"../../src/lib/golden-layout.component.scss"
+		"../src/lib/golden-layout.component.scss"
 	],
 	"names": [],
 	"mappings": ""

@@ -11,7 +11,7 @@
       ],
       "module": "es6",
       "moduleResolution": "node",
-      "outDir": "../dist",
+      "outDir": "../",
       "rootDir": ".",
       "skipLibCheck": true,
       "sourceMap": true,
@@ -31,7 +31,7 @@
     "angularCompilerOptions": {
       "annotateForClosureCompiler": true,
       "flatModuleId": "angular-golden-layout",
-      "flatModuleOutFile": "angular-golden-layout.js",
+      "flatModuleOutFile": "index.js",
       "skipTemplateCodegen": true,
       "strictMetadataEmit": true
     }
