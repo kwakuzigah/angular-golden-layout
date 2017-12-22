@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import * as $ from 'jquery';
 
 import { AppComponent } from './app.component';
+import { HeroJobAdComponent } from './ad.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GoldenLayoutConfig, GOLDEN_LAYOUT_CONFIG } from 'app/golden-layout.interfaces';
 import { GoldenLayoutModule } from 'app/golden-layout.module';
 import * as GoldenLayout from 'golden-layout';
 import { TestEditorComponent } from 'app/test-editor.component';
+import { FormsModule } from '@angular/forms';
 
 
 const DEFAULT_GOLDEN_LAYOUT_CONFIG: GoldenLayout.Config = {};
@@ -16,12 +18,15 @@ const DEFAULT_GOLDEN_LAYOUT_CONFIG: GoldenLayout.Config = {};
 @NgModule({
   declarations: [
     AppComponent,
+    HeroJobAdComponent,
     TestEditorComponent
   ],
+  entryComponents: [ HeroJobAdComponent, TestEditorComponent ],
   imports: [
     GoldenLayoutModule,    
     BrowserModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [
     {

@@ -1,10 +1,14 @@
 import * as GoldenLayout from 'golden-layout';
-
-import { Directive, KeyValueDiffer, Input, Renderer2, KeyValueDiffers, ElementRef, Optional, Inject, SimpleChanges, OnInit, DoCheck, OnChanges, OnDestroy, NgZone } from '@angular/core';
+import { InjectionToken, HostListener, Directive, KeyValueDiffer, Input, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector,
+ Optional, ViewChild, Inject, SimpleChanges, OnInit, DoCheck, OnChanges, OnDestroy, NgZone, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
 
 import { GOLDEN_LAYOUT_CONFIG } from './golden-layout.interfaces';
 
 import { GoldenLayoutEvents, GoldenLayoutConfig } from './golden-layout.interfaces';
+
+export const GoldenLayoutContainer = new InjectionToken('GoldenLayoutContainer');
+export const GoldenLayoutComponentState = new InjectionToken('GoldenLayoutComponentState');
+const COMPONENT_REF_KEY = '$componentRef';
 
 @Directive({
   selector: '[golden-layout]',
@@ -15,6 +19,7 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
 
   private configDiff: KeyValueDiffer<string, any>;
 
+  @ViewChild('glroot') private el: ElementRef;
   @Input() disabled: boolean = false;
 
   @Input('golden-layout') config: GoldenLayout.Config;
@@ -50,11 +55,18 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
 //   @Output('queueComplete'         ) DZ_QUEUECOMPLETE            = new EventEmitter<any>();
 //   @Output('totalUploadProgress'   ) DZ_TOTALUPLOADPROGRESS      = new EventEmitter<any>();
 
-  constructor(private zone: NgZone, private renderer: Renderer2,
-    private elementRef: ElementRef, private differs: KeyValueDiffers,
+  constructor(
+    private resolver: ComponentFactoryResolver, 
+    private zone: NgZone, 
+    private renderer: Renderer2,
+    private elementRef: ElementRef, 
+    private differs: KeyValueDiffers,
+    private viewContainer: ViewContainerRef,
+    private readonly injector: Injector,
     @Optional() @Inject(GOLDEN_LAYOUT_CONFIG) private defaults: GoldenLayoutConfig)
   {
     const gl = GoldenLayout;
+    console.log('>>>> resolver', this.resolver)
   }
 
   ngOnInit() {
@@ -70,6 +82,15 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
     this.zone.runOutsideAngular(() => {
       console.log('>>>> init GoldenLayout', params, this.elementRef.nativeElement )
       this.instance = new GoldenLayout(params, this.elementRef.nativeElement);
+
+      this.instance.eventHub.on('itemDestroyed', (item: any) => {
+        const container = item.container;
+        const component = container && container[COMPONENT_REF_KEY];
+        if (component) {
+          component.destroy();
+          (container as any)[COMPONENT_REF_KEY] = null;
+        }
+      });
     });
 
 //     // Add auto reset handling for events
@@ -117,10 +138,65 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
     });
   }
 
-  public registerComponent(name: String, componentClass: any) {
-    this.instance.registerComponent(name, function(container, state) {
+  @HostListener('window:resize', ['$event'])
+  public onResize(event: any): void {
+    if (this.instance) {
+      this.instance.updateSize();
+    }
+  }
+
+  public registerComponent(name: String, componentType: any) {
+
+    this.instance.registerComponent(name, (container: GoldenLayout.Container, componentState: any) => {
+       this.zone.run(() => {
+        // Inputs need to be in the following format to be resolved properly
+        // let inputProviders = Object.keys(componentState).map((inputName) => {return {provide: inputName, useValue: componentState[inputName]};});
+        // inputProviders.push({
+        //     provide: GoldenLayoutContainer,
+        //     useValue: container
+        //   });
+          // console.log('inputProviders', inputProviders)
+        const injector = this._createComponentInjector(container, componentState);
+        const factory = this.resolver.resolveComponentFactory(componentType);
+        const componentRef = this.viewContainer.createComponent(factory, undefined, injector);
+        // (componentRef.instance).data = componentState;
+          console.log('componentState', componentState)
+
+        // Bind the new component to container's client DOM element.
+        container.getElement().append($(componentRef.location.nativeElement));
+
+        // this._bindEventHooks(container, componentRef.instance);
+
+        // Store a ref to the componentRef in the container to support destruction later on.
+        (container as any)[COMPONENT_REF_KEY] = componentRef;
+
+        // // We create an injector out of the data we want to pass down and this components injector
+        // // let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, container.parentInjector);
         
+        // // We create a factory out of the component we want to create
+        // let factory = this.resolver.resolveComponentFactory(componentClass);
+        
+        // // We create the component using the factory and the injector
+        // let component = factory.create(injector);
+
+        // // We insert the component into the dom container
+        // console.log('>>>> created component', component)
+        // container.insert(component.hostView);
+       });
     });
+  }
+
+  private _createComponentInjector(container: GoldenLayout.Container, componentState: any): Injector {
+    return ReflectiveInjector.resolveAndCreate([
+      {
+        provide: GoldenLayoutContainer,
+        useValue: container
+      },
+      {
+        provide: GoldenLayoutComponentState,
+        useValue: componentState
+      },
+    ], this.injector);
   }
 
   ngDoCheck() {

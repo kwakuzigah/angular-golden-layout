@@ -63,8 +63,9 @@ export class GoldenLayoutConfig implements GoldenLayout.Config {
   }
 }
 export interface GoldenLayoutContentComponentInterface {
-
+  data: any;
 }
+
 // export type DropzoneUrlFunction = (files: any) => string;
 // export type DropzoneMethodFunction = (files: any) => string;
 

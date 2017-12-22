@@ -3,6 +3,8 @@ import { GoldenLayoutConfig } from 'app/golden-layout.interfaces';
 import { GoldenLayoutComponent } from 'app/golden-layout.component';
 import { GoldenLayoutDirective } from 'app/golden-layout.directive';
 import * as GoldenLayout from 'golden-layout';
+import { TestEditorComponent } from 'app/test-editor.component';
+import { HeroJobAdComponent } from './ad.component';
 
 
 @Component({
@@ -13,6 +15,7 @@ import * as GoldenLayout from 'golden-layout';
 export class AppComponent implements AfterViewInit {
 
   public type: string = 'component';
+  private state: object = { label: 'COCO' };
   title = 'app';
 
   public config: GoldenLayout.Config = {
@@ -33,7 +36,7 @@ export class AppComponent implements AfterViewInit {
           },{
               type:'component',
               componentName: 'test-component',
-              componentState: { label: 'C' }
+              componentState: this.state
           }]
       }]
     };
@@ -45,7 +48,7 @@ export class AppComponent implements AfterViewInit {
     this.type = (this.type === 'component') ? 'directive' : 'component';
   }
   ngAfterViewInit(): void {
-      this.directiveRef.registerComponent('test-component', TestEditorComponent);
+      this.directiveRef.registerComponent('test-component', HeroJobAdComponent);
       this.directiveRef.init();
   }
 }

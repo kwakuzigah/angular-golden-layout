@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, forwardRef, Input} from '@angular/core';
+import {AfterViewInit, Component, forwardRef, Input, Inject} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 
@@ -13,11 +13,20 @@ const noop = () => {
 
 @Component({
   selector: 'test-editor',
-  template: '<input type="text" [(ngModel)]="_innerValue" />',
+  template: '{{label}}<input type="text" [(ngModel)]="myText" >',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TestEditorComponent implements ControlValueAccessor {
+  @Input()
+  private data: any;
 
+  @Input()
+  private label: string;
+
+  constructor(@Inject('label') private myText: string) {
+    console.log(myText);
+    // this.myContent = 'myText';
+  }
   //The internal data model
   private _innerValue: string = '';
 
