@@ -6,7 +6,7 @@
 /bundles
 /lib
 /dist
-index.*
+
 
 # dependencies
 node_modules
