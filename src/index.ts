@@ -4,7 +4,7 @@ export { GoldenLayoutDirective } from './lib/golden-layout.directive';
 export {
   GOLDEN_LAYOUT_CONFIG,
 
-  GoldenLayoutConfig
+  GoldenLayoutConfig,
 
 //   DropzoneUrlFunction,
 //   DropzoneMethodFunction,

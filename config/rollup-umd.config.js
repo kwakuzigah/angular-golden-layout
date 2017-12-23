@@ -1,7 +1,7 @@
 import sourcemaps from 'rollup-plugin-sourcemaps';
 
 export default {
-  entry: './index.js',
+  entry: './dist/index.js',
   dest: './bundles/angular-golden-layout.umd.js',
   sourceMap: true,
   plugins: [

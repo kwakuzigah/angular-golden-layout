@@ -1,5 +1,4 @@
 import * as GoldenLayout from 'golden-layout';
-import $ from 'jquery';
 import { InjectionToken, HostListener, Directive, KeyValueDiffer, Input, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector,
  Optional, ViewChild, Inject, SimpleChanges, OnInit, DoCheck, OnChanges, OnDestroy, NgZone, ReflectiveInjector, ComponentFactoryResolver, EventEmitter, Output } from '@angular/core';
 
