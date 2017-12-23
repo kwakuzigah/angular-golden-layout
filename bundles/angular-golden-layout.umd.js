@@ -343,6 +343,8 @@ var GoldenLayoutModule = (function () {
 
 exports.GoldenLayoutComponent = GoldenLayoutComponent;
 exports.GoldenLayoutDirective = GoldenLayoutDirective;
+exports.GoldenLayoutComponentState = GoldenLayoutComponentState;
+exports.GoldenLayoutContainer = GoldenLayoutContainer;
 exports.GOLDEN_LAYOUT_CONFIG = GOLDEN_LAYOUT_CONFIG;
 exports.GoldenLayoutConfig = GoldenLayoutConfig;
 exports.GoldenLayoutModule = GoldenLayoutModule;

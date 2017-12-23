@@ -1,10 +1,10 @@
 export { GoldenLayoutComponent } from './lib/golden-layout.component';
-export { GoldenLayoutDirective } from './lib/golden-layout.directive';
+export { GoldenLayoutDirective, GoldenLayoutComponentState, GoldenLayoutContainer } from './lib/golden-layout.directive';
 
 export {
   GOLDEN_LAYOUT_CONFIG,
 
-  GoldenLayoutConfig,
+  GoldenLayoutConfig
 
 //   DropzoneUrlFunction,
 //   DropzoneMethodFunction,
