@@ -3,7 +3,7 @@
   "description": "Angular wrapper library for Golden Layout",
   "bugs": "https://github.com/kwakuzigah/angular-golden-layout/issues",
   "license": "MIT",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "main": "./bundles/angular-golden-layout.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
