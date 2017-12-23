@@ -4,6 +4,7 @@
 /tmp
 /out-tsc
 /bundles
+/lib
 /dist
 index.*
 
