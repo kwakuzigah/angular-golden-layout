@@ -72,10 +72,10 @@ var GoldenLayoutDirective = (function () {
     };
     GoldenLayoutDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.init();
         this.componentDefinitions.forEach(function (componentDefinition) {
             _this.registerComponent(componentDefinition);
         });
+        this.init();
     };
     GoldenLayoutDirective.prototype.init = function () {
         var _this = this;
