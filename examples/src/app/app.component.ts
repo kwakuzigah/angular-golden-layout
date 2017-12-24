@@ -1,7 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { GoldenLayoutConfig, GoldenLayoutComponentDefinition } from 'app/golden-layout.interfaces';
-import { GoldenLayoutComponent } from 'app/golden-layout.component';
-import { GoldenLayoutDirective } from 'app/golden-layout.directive';
+import { GoldenLayoutConfig, GoldenLayoutComponent, GoldenLayoutDirective, GoldenLayoutComponentDefinition } from 'angular-golden-layout';
 import * as GoldenLayout from 'golden-layout';
 import { TestEditorComponent } from 'app/test-editor.component';
 import { HeroJobAdComponent } from './ad.component';
