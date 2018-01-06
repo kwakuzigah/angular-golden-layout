@@ -166,9 +166,10 @@ var GoldenLayoutDirective = (function () {
                 var factory = _this.resolver.resolveComponentFactory(goldenLayoutComponentDefinitions.componentType);
                 var componentRef = _this.viewContainer.createComponent(factory, undefined, injector);
                 // (componentRef.instance).data = componentState;
-                console.log('componentState', componentState);
+                // console.log('componentState', componentState)
                 // Bind the new component to container's client DOM element.
                 container.getElement().append($(componentRef.location.nativeElement));
+                componentRef.changeDetectorRef.detectChanges();
                 // this._bindEventHooks(container, componentRef.instance);
                 // Store a ref to the componentRef in the container to support destruction later on.
                 // this._bindEventHooks(container, componentRef.instance);

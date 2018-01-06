@@ -141,10 +141,11 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
         const factory = this.resolver.resolveComponentFactory(goldenLayoutComponentDefinitions.componentType);
         const componentRef = this.viewContainer.createComponent(factory, undefined, injector);
         // (componentRef.instance).data = componentState;
-          console.log('componentState', componentState)
+          // console.log('componentState', componentState)
 
         // Bind the new component to container's client DOM element.
         container.getElement().append($(componentRef.location.nativeElement));
+        componentRef.changeDetectorRef.detectChanges();
 
         // this._bindEventHooks(container, componentRef.instance);
 
