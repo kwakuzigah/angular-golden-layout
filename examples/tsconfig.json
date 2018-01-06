@@ -12,6 +12,10 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "paths": {
+      "@bundles/*": ["../../bundles/*"],
+      "@lib/*": ["../../src/lib/*"]
+    },
     "lib": [
       "es2017",
       "dom"

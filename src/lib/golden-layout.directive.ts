@@ -96,10 +96,10 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
   }
 
   ngAfterViewInit(): void {
-    this.init();
     this.componentDefinitions.forEach(componentDefinition => {
       this.registerComponent(componentDefinition);
     });
+    this.init();
   }
 
   public init() {

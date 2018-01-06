@@ -1,8 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 import * as GoldenLayout from 'golden-layout';
 
-import { GoldenLayoutComponentState, GoldenLayoutContainer } from './golden-layout.directive';
-import { GoldenLayoutContentComponentInterface } from './golden-layout.interfaces';
+import { GoldenLayoutComponentState, GoldenLayoutContainer, GoldenLayoutContentComponentInterface } from 'angular-golden-layout';
 
 @Component({
   template: `
