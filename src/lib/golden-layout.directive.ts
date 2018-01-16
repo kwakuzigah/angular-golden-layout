@@ -27,18 +27,18 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
   @Output() contentChange = new EventEmitter();
   @Input() componentDefinitions: GoldenLayoutComponentDefinition[];
 
-  @Output('initialised'        ) DZ_INITIALISED          = new EventEmitter<any>();
-  @Output('stateChanged'       ) DZ_STATECHANGED         = new EventEmitter<any>();
-  @Output('windowOpened'       ) DZ_WINDOWOPENED         = new EventEmitter<any>();
-  @Output('windowClosed'       ) DZ_WINDOWCLOSED         = new EventEmitter<any>();
-  @Output('selectionChanged'   ) DZ_SELECTIONCHANGED     = new EventEmitter<any>();
-  @Output('itemDestroyed'      ) DZ_ITEMDESTROYED        = new EventEmitter<any>();
-  @Output('itemCreated'        ) DZ_ITEMCREATED          = new EventEmitter<any>();
-  @Output('componentCreated'   ) DZ_COMPONENTCREATED     = new EventEmitter<any>();
-  @Output('rowCreated'         ) DZ_ROWCREATED           = new EventEmitter<any>();
-  @Output('columnCreated'      ) DZ_COLUMNCREATED        = new EventEmitter<any>();
-  @Output('stackCreated'       ) DZ_STACKCREATED         = new EventEmitter<any>();
-  @Output('tabCreated'         ) DZ_TABCREATED           = new EventEmitter<any>();
+  @Output('initialised'        ) GL_INITIALISED          = new EventEmitter<any>();
+  @Output('stateChanged'       ) GL_STATECHANGED         = new EventEmitter<any>();
+  @Output('windowOpened'       ) GL_WINDOWOPENED         = new EventEmitter<any>();
+  @Output('windowClosed'       ) GL_WINDOWCLOSED         = new EventEmitter<any>();
+  @Output('selectionChanged'   ) GL_SELECTIONCHANGED     = new EventEmitter<any>();
+  @Output('itemDestroyed'      ) GL_ITEMDESTROYED        = new EventEmitter<any>();
+  @Output('itemCreated'        ) GL_ITEMCREATED          = new EventEmitter<any>();
+  @Output('componentCreated'   ) GL_COMPONENTCREATED     = new EventEmitter<any>();
+  @Output('rowCreated'         ) GL_ROWCREATED           = new EventEmitter<any>();
+  @Output('columnCreated'      ) GL_COLUMNCREATED        = new EventEmitter<any>();
+  @Output('stackCreated'       ) GL_STACKCREATED         = new EventEmitter<any>();
+  @Output('tabCreated'         ) GL_TABCREATED           = new EventEmitter<any>();
 
   constructor(
     private resolver: ComponentFactoryResolver, 
@@ -80,9 +80,9 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
       this.instance.on(eventName.toLowerCase(), (...args) => {
         args = (args.length === 1) ? args[0] : args;
 
-        if (this[`DZ_${eventName.toUpperCase()}`]) {
+        if (this[`GL_${eventName.toUpperCase()}`]) {
           this.zone.run(() => {
-            this[`DZ_${eventName.toUpperCase()}`].emit(args);
+            this[`GL_${eventName.toUpperCase()}`].emit(args);
           });
         }
       });

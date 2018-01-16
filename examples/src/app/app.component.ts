@@ -53,4 +53,8 @@ private componentDefinitions: GoldenLayoutComponentDefinition[] = [{
   }
   ngAfterViewInit(): void {
   }
+  
+  componentInitialized(): void {
+    console.log('component initialized called')
+  }
 }

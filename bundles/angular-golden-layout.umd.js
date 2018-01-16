@@ -68,18 +68,18 @@ var GoldenLayoutDirective = (function () {
         this.defaults = defaults;
         this.disabled = false;
         this.contentChange = new core.EventEmitter();
-        this.DZ_INITIALISED = new core.EventEmitter();
-        this.DZ_STATECHANGED = new core.EventEmitter();
-        this.DZ_WINDOWOPENED = new core.EventEmitter();
-        this.DZ_WINDOWCLOSED = new core.EventEmitter();
-        this.DZ_SELECTIONCHANGED = new core.EventEmitter();
-        this.DZ_ITEMDESTROYED = new core.EventEmitter();
-        this.DZ_ITEMCREATED = new core.EventEmitter();
-        this.DZ_COMPONENTCREATED = new core.EventEmitter();
-        this.DZ_ROWCREATED = new core.EventEmitter();
-        this.DZ_COLUMNCREATED = new core.EventEmitter();
-        this.DZ_STACKCREATED = new core.EventEmitter();
-        this.DZ_TABCREATED = new core.EventEmitter();
+        this.GL_INITIALISED = new core.EventEmitter();
+        this.GL_STATECHANGED = new core.EventEmitter();
+        this.GL_WINDOWOPENED = new core.EventEmitter();
+        this.GL_WINDOWCLOSED = new core.EventEmitter();
+        this.GL_SELECTIONCHANGED = new core.EventEmitter();
+        this.GL_ITEMDESTROYED = new core.EventEmitter();
+        this.GL_ITEMCREATED = new core.EventEmitter();
+        this.GL_COMPONENTCREATED = new core.EventEmitter();
+        this.GL_ROWCREATED = new core.EventEmitter();
+        this.GL_COLUMNCREATED = new core.EventEmitter();
+        this.GL_STACKCREATED = new core.EventEmitter();
+        this.GL_TABCREATED = new core.EventEmitter();
         
     }
     GoldenLayoutDirective.prototype.ngOnInit = function () {
@@ -109,9 +109,9 @@ var GoldenLayoutDirective = (function () {
                     args[_i] = arguments[_i];
                 }
                 args = (args.length === 1) ? args[0] : args;
-                if (_this["DZ_" + eventName.toUpperCase()]) {
+                if (_this["GL_" + eventName.toUpperCase()]) {
                     _this.zone.run(function () {
-                        _this["DZ_" + eventName.toUpperCase()].emit(args);
+                        _this["GL_" + eventName.toUpperCase()].emit(args);
                     });
                 }
             });
@@ -260,18 +260,18 @@ var GoldenLayoutDirective = (function () {
         "config": [{ type: core.Input, args: ['golden-layout',] },],
         "contentChange": [{ type: core.Output },],
         "componentDefinitions": [{ type: core.Input },],
-        "DZ_INITIALISED": [{ type: core.Output, args: ['initialised',] },],
-        "DZ_STATECHANGED": [{ type: core.Output, args: ['stateChanged',] },],
-        "DZ_WINDOWOPENED": [{ type: core.Output, args: ['windowOpened',] },],
-        "DZ_WINDOWCLOSED": [{ type: core.Output, args: ['windowClosed',] },],
-        "DZ_SELECTIONCHANGED": [{ type: core.Output, args: ['selectionChanged',] },],
-        "DZ_ITEMDESTROYED": [{ type: core.Output, args: ['itemDestroyed',] },],
-        "DZ_ITEMCREATED": [{ type: core.Output, args: ['itemCreated',] },],
-        "DZ_COMPONENTCREATED": [{ type: core.Output, args: ['componentCreated',] },],
-        "DZ_ROWCREATED": [{ type: core.Output, args: ['rowCreated',] },],
-        "DZ_COLUMNCREATED": [{ type: core.Output, args: ['columnCreated',] },],
-        "DZ_STACKCREATED": [{ type: core.Output, args: ['stackCreated',] },],
-        "DZ_TABCREATED": [{ type: core.Output, args: ['tabCreated',] },],
+        "GL_INITIALISED": [{ type: core.Output, args: ['initialised',] },],
+        "GL_STATECHANGED": [{ type: core.Output, args: ['stateChanged',] },],
+        "GL_WINDOWOPENED": [{ type: core.Output, args: ['windowOpened',] },],
+        "GL_WINDOWCLOSED": [{ type: core.Output, args: ['windowClosed',] },],
+        "GL_SELECTIONCHANGED": [{ type: core.Output, args: ['selectionChanged',] },],
+        "GL_ITEMDESTROYED": [{ type: core.Output, args: ['itemDestroyed',] },],
+        "GL_ITEMCREATED": [{ type: core.Output, args: ['itemCreated',] },],
+        "GL_COMPONENTCREATED": [{ type: core.Output, args: ['componentCreated',] },],
+        "GL_ROWCREATED": [{ type: core.Output, args: ['rowCreated',] },],
+        "GL_COLUMNCREATED": [{ type: core.Output, args: ['columnCreated',] },],
+        "GL_STACKCREATED": [{ type: core.Output, args: ['stackCreated',] },],
+        "GL_TABCREATED": [{ type: core.Output, args: ['tabCreated',] },],
         "content": [{ type: core.Input },],
         "onResize": [{ type: core.HostListener, args: ['window:resize', ['$event'],] },],
     };

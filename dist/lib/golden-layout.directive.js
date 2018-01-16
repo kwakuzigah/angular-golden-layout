@@ -17,18 +17,18 @@ var GoldenLayoutDirective = (function () {
         this.defaults = defaults;
         this.disabled = false;
         this.contentChange = new EventEmitter();
-        this.DZ_INITIALISED = new EventEmitter();
-        this.DZ_STATECHANGED = new EventEmitter();
-        this.DZ_WINDOWOPENED = new EventEmitter();
-        this.DZ_WINDOWCLOSED = new EventEmitter();
-        this.DZ_SELECTIONCHANGED = new EventEmitter();
-        this.DZ_ITEMDESTROYED = new EventEmitter();
-        this.DZ_ITEMCREATED = new EventEmitter();
-        this.DZ_COMPONENTCREATED = new EventEmitter();
-        this.DZ_ROWCREATED = new EventEmitter();
-        this.DZ_COLUMNCREATED = new EventEmitter();
-        this.DZ_STACKCREATED = new EventEmitter();
-        this.DZ_TABCREATED = new EventEmitter();
+        this.GL_INITIALISED = new EventEmitter();
+        this.GL_STATECHANGED = new EventEmitter();
+        this.GL_WINDOWOPENED = new EventEmitter();
+        this.GL_WINDOWCLOSED = new EventEmitter();
+        this.GL_SELECTIONCHANGED = new EventEmitter();
+        this.GL_ITEMDESTROYED = new EventEmitter();
+        this.GL_ITEMCREATED = new EventEmitter();
+        this.GL_COMPONENTCREATED = new EventEmitter();
+        this.GL_ROWCREATED = new EventEmitter();
+        this.GL_COLUMNCREATED = new EventEmitter();
+        this.GL_STACKCREATED = new EventEmitter();
+        this.GL_TABCREATED = new EventEmitter();
         var gl = GoldenLayout;
     }
     GoldenLayoutDirective.prototype.ngOnInit = function () {
@@ -58,9 +58,9 @@ var GoldenLayoutDirective = (function () {
                     args[_i] = arguments[_i];
                 }
                 args = (args.length === 1) ? args[0] : args;
-                if (_this["DZ_" + eventName.toUpperCase()]) {
+                if (_this["GL_" + eventName.toUpperCase()]) {
                     _this.zone.run(function () {
-                        _this["DZ_" + eventName.toUpperCase()].emit(args);
+                        _this["GL_" + eventName.toUpperCase()].emit(args);
                     });
                 }
             });
@@ -209,18 +209,18 @@ var GoldenLayoutDirective = (function () {
         "config": [{ type: Input, args: ['golden-layout',] },],
         "contentChange": [{ type: Output },],
         "componentDefinitions": [{ type: Input },],
-        "DZ_INITIALISED": [{ type: Output, args: ['initialised',] },],
-        "DZ_STATECHANGED": [{ type: Output, args: ['stateChanged',] },],
-        "DZ_WINDOWOPENED": [{ type: Output, args: ['windowOpened',] },],
-        "DZ_WINDOWCLOSED": [{ type: Output, args: ['windowClosed',] },],
-        "DZ_SELECTIONCHANGED": [{ type: Output, args: ['selectionChanged',] },],
-        "DZ_ITEMDESTROYED": [{ type: Output, args: ['itemDestroyed',] },],
-        "DZ_ITEMCREATED": [{ type: Output, args: ['itemCreated',] },],
-        "DZ_COMPONENTCREATED": [{ type: Output, args: ['componentCreated',] },],
-        "DZ_ROWCREATED": [{ type: Output, args: ['rowCreated',] },],
-        "DZ_COLUMNCREATED": [{ type: Output, args: ['columnCreated',] },],
-        "DZ_STACKCREATED": [{ type: Output, args: ['stackCreated',] },],
-        "DZ_TABCREATED": [{ type: Output, args: ['tabCreated',] },],
+        "GL_INITIALISED": [{ type: Output, args: ['initialised',] },],
+        "GL_STATECHANGED": [{ type: Output, args: ['stateChanged',] },],
+        "GL_WINDOWOPENED": [{ type: Output, args: ['windowOpened',] },],
+        "GL_WINDOWCLOSED": [{ type: Output, args: ['windowClosed',] },],
+        "GL_SELECTIONCHANGED": [{ type: Output, args: ['selectionChanged',] },],
+        "GL_ITEMDESTROYED": [{ type: Output, args: ['itemDestroyed',] },],
+        "GL_ITEMCREATED": [{ type: Output, args: ['itemCreated',] },],
+        "GL_COMPONENTCREATED": [{ type: Output, args: ['componentCreated',] },],
+        "GL_ROWCREATED": [{ type: Output, args: ['rowCreated',] },],
+        "GL_COLUMNCREATED": [{ type: Output, args: ['columnCreated',] },],
+        "GL_STACKCREATED": [{ type: Output, args: ['stackCreated',] },],
+        "GL_TABCREATED": [{ type: Output, args: ['tabCreated',] },],
         "content": [{ type: Input },],
         "onResize": [{ type: HostListener, args: ['window:resize', ['$event'],] },],
     };
