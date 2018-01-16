@@ -37,7 +37,7 @@ export declare class GoldenLayoutDirective implements OnInit, DoCheck, OnChanges
     ngAfterViewInit(): void;
     init(): void;
     content: GoldenLayout.ItemConfigType;
-    onResize(event: any): void;
+    updateSize(width: number, height: number): void;
     registerComponent(goldenLayoutComponentDefinitions: GoldenLayoutComponentDefinition): void;
     private _createComponentInjector(container, componentState);
     ngDoCheck(): void;

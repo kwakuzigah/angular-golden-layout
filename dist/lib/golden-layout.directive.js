@@ -1,5 +1,5 @@
 import * as GoldenLayout from 'golden-layout';
-import { InjectionToken, HostListener, Directive, Input, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector, Optional, ViewChild, Inject, NgZone, ReflectiveInjector, ComponentFactoryResolver, EventEmitter, Output } from '@angular/core';
+import { InjectionToken, Directive, Input, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector, Optional, ViewChild, Inject, NgZone, ReflectiveInjector, ComponentFactoryResolver, EventEmitter, Output } from '@angular/core';
 import { GOLDEN_LAYOUT_CONFIG } from './golden-layout.interfaces';
 import { GoldenLayoutEvents, GoldenLayoutConfig } from './golden-layout.interfaces';
 export var GoldenLayoutContainer = new InjectionToken('GoldenLayoutContainer');
@@ -95,12 +95,28 @@ var GoldenLayoutDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    GoldenLayoutDirective.prototype.onResize = function (event) {
+    GoldenLayoutDirective.prototype.updateSize = function (width, height) {
         if (this.instance) {
-            this.instance.updateSize();
+            this.instance.updateSize(width, height);
         }
     };
-    GoldenLayoutDirective.prototype.registerComponent = function (goldenLayoutComponentDefinitions) {
+    // public getComponent(name: string): void {
+    //   if (this.instance) {
+    //     this.instance.getComponent(name);
+    //   }
+    // }
+    // public getComponent(name: string): void {
+    //   if (this.instance) {
+    //     this.instance.getComponent(name);
+    //   }
+    // }
+    GoldenLayoutDirective.prototype.registerComponent = 
+    // public getComponent(name: string): void {
+    //   if (this.instance) {
+    //     this.instance.getComponent(name);
+    //   }
+    // }
+    function (goldenLayoutComponentDefinitions) {
         var _this = this;
         this.instance.registerComponent(goldenLayoutComponentDefinitions.componentName, function (container, componentState) {
             _this.zone.run(function () {
@@ -222,7 +238,6 @@ var GoldenLayoutDirective = (function () {
         "GL_STACKCREATED": [{ type: Output, args: ['stackCreated',] },],
         "GL_TABCREATED": [{ type: Output, args: ['tabCreated',] },],
         "content": [{ type: Input },],
-        "onResize": [{ type: HostListener, args: ['window:resize', ['$event'],] },],
     };
     return GoldenLayoutDirective;
 }());

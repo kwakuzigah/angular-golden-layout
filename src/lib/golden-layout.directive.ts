@@ -119,12 +119,17 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
     return this._content;
   }
 
-  @HostListener('window:resize', ['$event'])
-  public onResize(event: any): void {
+  public updateSize(width: number, height: number): void {
     if (this.instance) {
-      this.instance.updateSize();
+      this.instance.updateSize(width, height);
     }
   }
+
+  // public getComponent(name: string): void {
+  //   if (this.instance) {
+  //     this.instance.getComponent(name);
+  //   }
+  // }
 
   public registerComponent(goldenLayoutComponentDefinitions: GoldenLayoutComponentDefinition) {
 
