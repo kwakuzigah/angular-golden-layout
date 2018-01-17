@@ -111,6 +111,7 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
 
   set content(val) {
     this._content = val;
+    console.log('>>>>> content changed')
     this.contentChange.emit(this._content);
   }
 

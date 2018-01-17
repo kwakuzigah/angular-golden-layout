@@ -141,6 +141,7 @@ var GoldenLayoutDirective = (function () {
         },
         set: function (val) {
             this._content = val;
+            console.log('>>>>> content changed');
             this.contentChange.emit(this._content);
         },
         enumerable: true,
