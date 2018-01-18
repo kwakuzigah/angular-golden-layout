@@ -89,10 +89,10 @@ var GoldenLayoutDirective = (function () {
         params.assign({ content: this.content });
         this.zone.runOutsideAngular(function () {
             _this.instance = new GoldenLayout(params, _this.elementRef.nativeElement);
-            _this.instance.eventHub.on('stateChanged', function () {
+            _this.instance.on('stateChanged', function () {
                 _this.content = _this.instance.toConfig().content;
             });
-            _this.instance.eventHub.on('itemDestroyed', function (item) {
+            _this.instance.on('itemDestroyed', function (item) {
                 var container = item.container;
                 var component = container && container[COMPONENT_REF_KEY];
                 if (component) {
@@ -141,7 +141,6 @@ var GoldenLayoutDirective = (function () {
         },
         set: function (val) {
             this._content = val;
-            console.log('>>>>> content changed');
             this.contentChange.emit(this._content);
         },
         enumerable: true,

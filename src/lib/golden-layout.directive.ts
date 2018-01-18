@@ -61,11 +61,11 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
 
     this.zone.runOutsideAngular(() => {
       this.instance = new GoldenLayout(params, this.elementRef.nativeElement);
-      this.instance.eventHub.on( 'stateChanged', () => {
+      this.instance.on( 'stateChanged', () => {
         this.content = this.instance.toConfig().content;
       });
 
-      this.instance.eventHub.on('itemDestroyed', (item: any) => {
+      this.instance.on('itemDestroyed', (item: any) => {
         const container = item.container;
         const component = container && container[COMPONENT_REF_KEY];
         if (component) {
@@ -111,7 +111,6 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
 
   set content(val) {
     this._content = val;
-    console.log('>>>>> content changed')
     this.contentChange.emit(this._content);
   }
 
