@@ -65,26 +65,26 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
         this.content = this.instance.toConfig().content;
       });
 
-      this.instance.on('itemDestroyed', (item: any) => {
-        const container = item.container;
-        const component = container && container[COMPONENT_REF_KEY];
-        if (component) {
-          component.destroy();
-          (container as any)[COMPONENT_REF_KEY] = null;
-        }
-      });
-    });
-
-    // Add native Golden Layout event handling
-    GoldenLayoutEvents.forEach((eventName) => {
-      this.instance.on(eventName.toLowerCase(), (...args) => {
-        args = (args.length === 1) ? args[0] : args;
-
-        if (this[`GL_${eventName.toUpperCase()}`]) {
-          this.zone.run(() => {
-            this[`GL_${eventName.toUpperCase()}`].emit(args);
-          });
-        }
+      // this.instance.on('itemDestroyed', (item: any) => {
+      //   const container = item.container;
+      //   const component = container && container[COMPONENT_REF_KEY];
+      //   if (component) {
+      //     component.destroy();
+      //     (container as any)[COMPONENT_REF_KEY] = null;
+      //   }
+      // });
+      
+      // Add native Golden Layout event handling
+      GoldenLayoutEvents.forEach((eventName) => {
+        this.instance.on(eventName.toLowerCase(), (...args) => {
+          args = (args.length === 1) ? args[0] : args;
+  
+          if (this[`GL_${eventName.toUpperCase()}`]) {
+            this.zone.run(() => {
+              this[`GL_${eventName.toUpperCase()}`].emit(args);
+            });
+          }
+        });
       });
     });
 

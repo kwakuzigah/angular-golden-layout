@@ -92,28 +92,28 @@ var GoldenLayoutDirective = (function () {
             _this.instance.on('stateChanged', function () {
                 _this.content = _this.instance.toConfig().content;
             });
-            _this.instance.on('itemDestroyed', function (item) {
-                var container = item.container;
-                var component = container && container[COMPONENT_REF_KEY];
-                if (component) {
-                    component.destroy();
-                    container[COMPONENT_REF_KEY] = null;
-                }
-            });
-        });
-        // Add native Golden Layout event handling
-        GoldenLayoutEvents.forEach(function (eventName) {
-            _this.instance.on(eventName.toLowerCase(), function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                args = (args.length === 1) ? args[0] : args;
-                if (_this["GL_" + eventName.toUpperCase()]) {
-                    _this.zone.run(function () {
-                        _this["GL_" + eventName.toUpperCase()].emit(args);
-                    });
-                }
+            // this.instance.on('itemDestroyed', (item: any) => {
+            //   const container = item.container;
+            //   const component = container && container[COMPONENT_REF_KEY];
+            //   if (component) {
+            //     component.destroy();
+            //     (container as any)[COMPONENT_REF_KEY] = null;
+            //   }
+            // });
+            // Add native Golden Layout event handling
+            GoldenLayoutEvents.forEach(function (eventName) {
+                _this.instance.on(eventName.toLowerCase(), function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    args = (args.length === 1) ? args[0] : args;
+                    if (_this["GL_" + eventName.toUpperCase()]) {
+                        _this.zone.run(function () {
+                            _this["GL_" + eventName.toUpperCase()].emit(args);
+                        });
+                    }
+                });
             });
         });
         if (!this.configDiff) {
