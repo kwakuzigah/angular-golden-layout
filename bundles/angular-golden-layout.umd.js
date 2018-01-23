@@ -90,16 +90,19 @@ var GoldenLayoutDirective = (function () {
         this.zone.runOutsideAngular(function () {
             _this.instance = new GoldenLayout(params, _this.elementRef.nativeElement);
             _this.instance.on('stateChanged', function () {
+                console.log('state changed');
                 _this.content = _this.instance.toConfig().content;
             });
-            // this.instance.on('itemDestroyed', (item: any) => {
-            //   const container = item.container;
-            //   const component = container && container[COMPONENT_REF_KEY];
-            //   if (component) {
-            //     component.destroy();
-            //     (container as any)[COMPONENT_REF_KEY] = null;
-            //   }
-            // });
+            //TODO fix destroy
+            //TODO fix destroy
+            _this.instance.on('itemDestroyed', function (item) {
+                var container = item.container;
+                var component = container && container[COMPONENT_REF_KEY];
+                if (component) {
+                    component.destroy();
+                    container[COMPONENT_REF_KEY] = null;
+                }
+            });
             // Add native Golden Layout event handling
             GoldenLayoutEvents.forEach(function (eventName) {
                 _this.instance.on(eventName.toLowerCase(), function () {

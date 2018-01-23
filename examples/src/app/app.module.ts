@@ -33,6 +33,6 @@ const DEFAULT_GOLDEN_LAYOUT_CONFIG: GoldenLayout.Config = {};
       useValue: DEFAULT_GOLDEN_LAYOUT_CONFIG
     }
   ],
-  bootstrap: [AppComponent, ]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
