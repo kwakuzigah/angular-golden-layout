@@ -13,5 +13,5 @@ export { GOLDEN_LAYOUT_CONFIG, GoldenLayoutConfig
 //   DropzoneTransformFileFunction,
 //   DropzoneChunksUploadedFunction
  } from './lib/golden-layout.interfaces';
-export { GoldenLayoutModule } from './lib/golden-layout.module';
+export * from './lib/golden-layout.module';
 //# sourceMappingURL=index.js.map

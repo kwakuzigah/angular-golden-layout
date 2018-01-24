@@ -20,4 +20,4 @@ export {
 //   DropzoneChunksUploadedFunction
 } from './lib/golden-layout.interfaces';
 
-export { GoldenLayoutModule } from './lib/golden-layout.module';
+export * from './lib/golden-layout.module';
