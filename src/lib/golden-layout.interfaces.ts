@@ -25,10 +25,10 @@ export interface GoldenLayoutComponentDefinition {
 }
 
 export class GoldenLayoutConfig implements GoldenLayout.Config {
-  settings: GoldenLayout.Settings;
-  dimensions: GoldenLayout.Dimensions;
-  labels: GoldenLayout.Labels;
-  content: GoldenLayout.ItemConfigType[];
+  settings?: GoldenLayout.Settings;
+  dimensions?: GoldenLayout.Dimensions;
+  labels?: GoldenLayout.Labels;
+  content?: GoldenLayout.ItemConfigType[];
 
   constructor(config: GoldenLayout.Config = {}) {
     this.assign(config);
