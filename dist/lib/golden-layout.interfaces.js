@@ -36,6 +36,27 @@ var GoldenLayoutConfig = (function () {
     return GoldenLayoutConfig;
 }());
 export { GoldenLayoutConfig };
+var GoldenLayoutComponentConfig = (function () {
+    function GoldenLayoutComponentConfig(config) {
+        this.assign(config);
+    }
+    GoldenLayoutComponentConfig.prototype.assign = function (config, target) {
+        if (config === void 0) { config = {}; }
+        target = target || this;
+        for (var key in config) {
+            if (config[key] != null && !(Array.isArray(config[key])) &&
+                typeof config[key] === 'object' && !(config[key] instanceof HTMLElement)) {
+                target[key] = {};
+                this.assign(config[key], target[key]);
+            }
+            else {
+                target[key] = config[key];
+            }
+        }
+    };
+    return GoldenLayoutComponentConfig;
+}());
+export { GoldenLayoutComponentConfig };
 // export type DropzoneUrlFunction = (files: any) => string;
 // export type DropzoneMethodFunction = (files: any) => string;
 // export type DropzoneParamsFunction = (files: any, xhr: any, chunk?: any) => any;

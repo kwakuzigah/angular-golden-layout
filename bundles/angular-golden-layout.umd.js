@@ -90,7 +90,6 @@ var GoldenLayoutDirective = (function () {
         this.zone.runOutsideAngular(function () {
             _this.instance = new GoldenLayout(params, _this.elementRef.nativeElement);
             _this.instance.on('stateChanged', function () {
-                console.log('state changed');
                 _this.content = _this.instance.toConfig().content;
             });
             //TODO fix destroy
@@ -205,6 +204,11 @@ var GoldenLayoutDirective = (function () {
                 // container.insert(component.hostView);
             });
         });
+    };
+    GoldenLayoutDirective.prototype.createDragSource = function (element, componentConfiguration) {
+        if (this.instance) {
+            this.instance.createDragSource(element, componentConfiguration);
+        }
     };
     GoldenLayoutDirective.prototype._createComponentInjector = function (container, componentState) {
         return core.ReflectiveInjector.resolveAndCreate([

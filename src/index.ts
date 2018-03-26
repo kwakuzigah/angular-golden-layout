@@ -5,7 +5,8 @@ export {
   GOLDEN_LAYOUT_CONFIG,
 
   GoldenLayoutConfig,
-  GoldenLayoutComponentDefinition
+  GoldenLayoutComponentDefinition,
+  GoldenLayoutItemConfiguration
 //   DropzoneUrlFunction,
 //   DropzoneMethodFunction,
 //   DropzoneParamsFunction,

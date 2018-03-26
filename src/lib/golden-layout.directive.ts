@@ -2,9 +2,7 @@ import * as GoldenLayout from 'golden-layout';
 import { InjectionToken, HostListener, Directive, KeyValueDiffer, Input, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector,
  Optional, ViewChild, Inject, SimpleChanges, OnInit, DoCheck, OnChanges, OnDestroy, NgZone, ReflectiveInjector, ComponentFactoryResolver, EventEmitter, Output } from '@angular/core';
 
-import { GOLDEN_LAYOUT_CONFIG } from './golden-layout.interfaces';
-
-import { GoldenLayoutEvents, GoldenLayoutConfig, GoldenLayoutComponentDefinition } from './golden-layout.interfaces';
+import { GOLDEN_LAYOUT_CONFIG,  GoldenLayoutEvents, GoldenLayoutConfig, GoldenLayoutComponentDefinition, GoldenLayoutComponentConfig, GoldenLayoutItemConfiguration } from './golden-layout.interfaces';
 
 export const GoldenLayoutContainer = new InjectionToken('GoldenLayoutContainer');
 export const GoldenLayoutComponentState = new InjectionToken('GoldenLayoutComponentState');
@@ -62,7 +60,6 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
     this.zone.runOutsideAngular(() => {
       this.instance = new GoldenLayout(params, this.elementRef.nativeElement);
       this.instance.on( 'stateChanged', () => {
-        console.log('state changed');
         this.content = this.instance.toConfig().content;
       });
 
@@ -173,6 +170,12 @@ export class GoldenLayoutDirective  implements OnInit, DoCheck, OnChanges, OnDes
         // container.insert(component.hostView);
        });
     });
+  }
+
+  public createDragSource(element, componentConfiguration: GoldenLayoutItemConfiguration) {
+    if (this.instance) {
+      this.instance.createDragSource(element, componentConfiguration);
+    }
   }
 
   private _createComponentInjector(container: GoldenLayout.Container, componentState: any): Injector {

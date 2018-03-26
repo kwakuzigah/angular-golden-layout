@@ -1,6 +1,6 @@
 import * as GoldenLayout from 'golden-layout';
 import { InjectionToken, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector, SimpleChanges, OnInit, DoCheck, OnChanges, OnDestroy, NgZone, ComponentFactoryResolver, EventEmitter } from '@angular/core';
-import { GoldenLayoutConfig, GoldenLayoutComponentDefinition } from './golden-layout.interfaces';
+import { GoldenLayoutConfig, GoldenLayoutComponentDefinition, GoldenLayoutItemConfiguration } from './golden-layout.interfaces';
 export declare const GoldenLayoutContainer: InjectionToken<{}>;
 export declare const GoldenLayoutComponentState: InjectionToken<{}>;
 export declare class GoldenLayoutDirective implements OnInit, DoCheck, OnChanges, OnDestroy {
@@ -39,6 +39,7 @@ export declare class GoldenLayoutDirective implements OnInit, DoCheck, OnChanges
     content: GoldenLayout.ItemConfigType;
     updateSize(width: number, height: number): void;
     registerComponent(goldenLayoutComponentDefinitions: GoldenLayoutComponentDefinition): void;
+    createDragSource(element: any, componentConfiguration: GoldenLayoutItemConfiguration): void;
     private _createComponentInjector(container, componentState);
     ngDoCheck(): void;
     ngOnDestroy(): void;

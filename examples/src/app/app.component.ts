@@ -45,6 +45,11 @@ private componentDefinitions: GoldenLayoutComponentDefinition[] = [{
     componentType: HeroJobAdComponent
 }];
 
+private textComponentDefinition: GoldenLayoutItemConfiguration = {
+  componentName: 'test-component', 
+  componentType: HeroJobAdComponent
+};
+
 //   @ViewChild(GoldenLayoutComponent) componentRef: GoldenLayoutComponent;
   @ViewChild(GoldenLayoutDirective) directiveRef: GoldenLayoutDirective;
 

@@ -19,6 +19,5 @@ import { GoldenLayoutConfig } from './golden-layout.interfaces';
   
     @ViewChild(GoldenLayoutDirective) directiveRef: GoldenLayoutDirective;
   
-  
     constructor() {}
   }

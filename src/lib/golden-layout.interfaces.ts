@@ -24,6 +24,12 @@ export interface GoldenLayoutComponentDefinition {
   componentType: any;
 }
 
+export interface GoldenLayoutItemConfiguration {
+  title?: string;
+  componentName: string;
+  componentState?: any;
+}
+
 export class GoldenLayoutConfig implements GoldenLayout.Config {
   settings: GoldenLayout.Settings;
   dimensions: GoldenLayout.Dimensions;
@@ -50,8 +56,36 @@ export class GoldenLayoutConfig implements GoldenLayout.Config {
     }
   }
 }
+
 export interface GoldenLayoutContentComponentInterface {
   state: any;
+}
+
+export class GoldenLayoutComponentConfig implements GoldenLayout.ComponentConfig {
+  title?: string;
+  type: string;
+  componentName: string;
+  componentState?: any;
+
+  constructor(config: GoldenLayout.ComponentConfig) {
+    this.assign(config);
+  }
+
+  assign(config: GoldenLayout.ComponentConfig | any = {}, target?: any) {
+    target = target || this;
+
+    for (const key in config) {
+      if (config[key] != null && !(Array.isArray(config[key])) &&
+        typeof config[key] === 'object' && !(config[key] instanceof HTMLElement))
+      {
+        target[key] = {};
+
+        this.assign(config[key], target[key]);
+      } else {
+        target[key] = config[key];
+      }
+    }
+  }
 }
 
 // export type DropzoneUrlFunction = (files: any) => string;
