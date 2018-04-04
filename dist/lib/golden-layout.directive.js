@@ -31,41 +31,14 @@ var GoldenLayoutDirective = (function () {
         var gl = GoldenLayout;
     }
     GoldenLayoutDirective.prototype.ngOnInit = function () {
-        var _this = this;
         var params = new GoldenLayoutConfig(this.defaults);
+        console.log('config', this.config);
+        console.log('content', this.content);
         params.assign(this.config);
         params.assign({ content: this.content });
-        this.zone.runOutsideAngular(function () {
-            _this.instance = new GoldenLayout(params, _this.elementRef.nativeElement);
-            _this.instance.on('stateChanged', function () {
-                _this.content = _this.instance.toConfig().content;
-            });
-            //TODO fix destroy
-            //TODO fix destroy
-            _this.instance.on('itemDestroyed', function (item) {
-                var container = item.container;
-                var component = container && container[COMPONENT_REF_KEY];
-                if (component) {
-                    component.destroy();
-                    container[COMPONENT_REF_KEY] = null;
-                }
-            });
-            // Add native Golden Layout event handling
-            GoldenLayoutEvents.forEach(function (eventName) {
-                _this.instance.on(eventName.toLowerCase(), function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
-                    args = (args.length === 1) ? args[0] : args;
-                    if (_this["GL_" + eventName.toUpperCase()]) {
-                        _this.zone.run(function () {
-                            _this["GL_" + eventName.toUpperCase()].emit(args);
-                        });
-                    }
-                });
-            });
-        });
+        // this.zone.runOutsideAngular(() => {
+        this.instance = new GoldenLayout(params, this.elementRef.nativeElement);
+        // });
         if (!this.configDiff) {
             this.configDiff = this.differs.find(this.config || {}).create();
             this.configDiff.diff(this.config || {});
@@ -73,17 +46,44 @@ var GoldenLayoutDirective = (function () {
     };
     GoldenLayoutDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
+        console.log('>>> in after view init');
+        //init golden layout
+        // this.zone.runOutsideAngular(() => {
         this.componentDefinitions.forEach(function (componentDefinition) {
+            console.log('componentDefinition', componentDefinition);
             _this.registerComponent(componentDefinition);
         });
-        this.init();
-    };
-    GoldenLayoutDirective.prototype.init = function () {
-        var _this = this;
-        //init golden layout
-        this.zone.runOutsideAngular(function () {
-            _this.instance.init();
+        console.log('>>> init state changed');
+        this.instance.on('stateChanged', function () {
+            console.log('>>> state changed', _this.instance.toConfig());
+            _this.content = _this.instance.toConfig().content;
         });
+        //TODO fix destroy
+        this.instance.on('itemDestroyed', function (item) {
+            var container = item.container;
+            var component = container && container[COMPONENT_REF_KEY];
+            if (component) {
+                component.destroy();
+                container[COMPONENT_REF_KEY] = null;
+            }
+        });
+        // Add native Golden Layout event handling
+        GoldenLayoutEvents.forEach(function (eventName) {
+            _this.instance.on(eventName.toLowerCase(), function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                args = (args.length === 1) ? args[0] : args;
+                if (_this["GL_" + eventName.toUpperCase()]) {
+                    _this.zone.run(function () {
+                        _this["GL_" + eventName.toUpperCase()].emit(args);
+                    });
+                }
+            });
+        });
+        this.instance.init();
+        // });
     };
     Object.defineProperty(GoldenLayoutDirective.prototype, "content", {
         get: function () {
@@ -120,37 +120,35 @@ var GoldenLayoutDirective = (function () {
     function (goldenLayoutComponentDefinitions) {
         var _this = this;
         this.instance.registerComponent(goldenLayoutComponentDefinitions.componentName, function (container, componentState) {
-            _this.zone.run(function () {
-                // Inputs need to be in the following format to be resolved properly
-                // let inputProviders = Object.keys(componentState).map((inputName) => {return {provide: inputName, useValue: componentState[inputName]};});
-                // inputProviders.push({
-                //     provide: GoldenLayoutContainer,
-                //     useValue: container
-                //   });
-                // console.log('inputProviders', inputProviders)
-                var injector = _this._createComponentInjector(container, componentState);
-                var factory = _this.resolver.resolveComponentFactory(goldenLayoutComponentDefinitions.componentType);
-                var componentRef = _this.viewContainer.createComponent(factory, undefined, injector);
-                // (componentRef.instance).data = componentState;
-                // console.log('componentState', componentState)
-                // Bind the new component to container's client DOM element.
-                container.getElement().append($(componentRef.location.nativeElement));
-                componentRef.changeDetectorRef.detectChanges();
-                // this._bindEventHooks(container, componentRef.instance);
-                // Store a ref to the componentRef in the container to support destruction later on.
-                // this._bindEventHooks(container, componentRef.instance);
-                // Store a ref to the componentRef in the container to support destruction later on.
-                container[COMPONENT_REF_KEY] = componentRef;
-                // // We create an injector out of the data we want to pass down and this components injector
-                // // let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, container.parentInjector);
-                // // We create a factory out of the component we want to create
-                // let factory = this.resolver.resolveComponentFactory(componentClass);
-                // // We create the component using the factory and the injector
-                // let component = factory.create(injector);
-                // // We insert the component into the dom container
-                // console.log('>>>> created component', component)
-                // container.insert(component.hostView);
-            });
+            // Inputs need to be in the following format to be resolved properly
+            // let inputProviders = Object.keys(componentState).map((inputName) => {return {provide: inputName, useValue: componentState[inputName]};});
+            // inputProviders.push({
+            //     provide: GoldenLayoutContainer,
+            //     useValue: container
+            //   });
+            // console.log('inputProviders', inputProviders)
+            var injector = _this._createComponentInjector(container, componentState);
+            var factory = _this.resolver.resolveComponentFactory(goldenLayoutComponentDefinitions.componentType);
+            var componentRef = _this.viewContainer.createComponent(factory, undefined, injector);
+            // (componentRef.instance).data = componentState;
+            // console.log('componentState', componentState)
+            // Bind the new component to container's client DOM element.
+            container.getElement().append($(componentRef.location.nativeElement));
+            componentRef.changeDetectorRef.detectChanges();
+            // this._bindEventHooks(container, componentRef.instance);
+            // Store a ref to the componentRef in the container to support destruction later on.
+            // this._bindEventHooks(container, componentRef.instance);
+            // Store a ref to the componentRef in the container to support destruction later on.
+            container[COMPONENT_REF_KEY] = componentRef;
+            // // We create an injector out of the data we want to pass down and this components injector
+            // // let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, container.parentInjector);
+            // // We create a factory out of the component we want to create
+            // let factory = this.resolver.resolveComponentFactory(componentClass);
+            // // We create the component using the factory and the injector
+            // let component = factory.create(injector);
+            // // We insert the component into the dom container
+            // console.log('>>>> created component', component)
+            // container.insert(component.hostView);
         });
     };
     GoldenLayoutDirective.prototype.createDragSource = function (element, componentConfiguration) {

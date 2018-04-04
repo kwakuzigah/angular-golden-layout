@@ -1,9 +1,10 @@
 import * as GoldenLayout from 'golden-layout';
 import { InjectionToken, Renderer2, KeyValueDiffers, ElementRef, ViewContainerRef, Injector, SimpleChanges, OnInit, DoCheck, OnChanges, OnDestroy, NgZone, ComponentFactoryResolver, EventEmitter } from '@angular/core';
 import { GoldenLayoutConfig, GoldenLayoutComponentDefinition, GoldenLayoutItemConfiguration } from './golden-layout.interfaces';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 export declare const GoldenLayoutContainer: InjectionToken<{}>;
 export declare const GoldenLayoutComponentState: InjectionToken<{}>;
-export declare class GoldenLayoutDirective implements OnInit, DoCheck, OnChanges, OnDestroy {
+export declare class GoldenLayoutDirective implements OnInit, AfterViewInit, DoCheck, OnChanges, OnDestroy {
     private resolver;
     private zone;
     private renderer;
@@ -35,7 +36,6 @@ export declare class GoldenLayoutDirective implements OnInit, DoCheck, OnChanges
     constructor(resolver: ComponentFactoryResolver, zone: NgZone, renderer: Renderer2, elementRef: ElementRef, differs: KeyValueDiffers, viewContainer: ViewContainerRef, injector: Injector, defaults: GoldenLayoutConfig);
     ngOnInit(): void;
     ngAfterViewInit(): void;
-    init(): void;
     content: GoldenLayout.ItemConfigType;
     updateSize(width: number, height: number): void;
     registerComponent(goldenLayoutComponentDefinitions: GoldenLayoutComponentDefinition): void;
