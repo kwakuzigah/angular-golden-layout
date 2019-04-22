@@ -19,6 +19,7 @@
     "start": "npm run build && npm run bundle",
     "watch": "watch --wait=5 'npm run start' src/",
     "lint": "npm run lint:ts && npm run lint:scss",
+    "mkdir": "mkdir /Users/dai/dev/nowinstore-plus/node_modules/angular-golden-layout/ && mkdir /Users/dai/dev/nowinstore-plus/node_modules/angular-golden-layout/bundles/",
     "cp": "cp -r bundles/ /Users/dai/dev/nowinstore-plus/node_modules/angular-golden-layout/bundles/ && cp -r dist/ /Users/dai/dev/nowinstore-plus/node_modules/angular-golden-layout/dist/",
     "build": "npm run build:html && npm run build:css && npm run build:js",
     "publish": "npm run clean && npm run build && npm run bundle && npm run cp", 

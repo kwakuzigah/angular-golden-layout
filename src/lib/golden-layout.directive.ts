@@ -194,17 +194,17 @@ export class GoldenLayoutDirective implements OnInit, AfterViewInit, DoCheck, On
     ], this.injector);
   }
 
-  ngDoCheck() {
-    if (!this.disabled && this.configDiff) {
-      const changes = this.configDiff.diff(this.config || {});
+   ngDoCheck() {
+     if (!this.disabled && this.configDiff) {
+       const changes = this.configDiff.diff(this.config || {});
 
-      if (changes && this.instance) {
-        this.ngOnDestroy();
+       if (changes && this.instance) {
+         this.ngOnDestroy();
 
-        this.ngOnInit();
-      }
-    }
-  }
+         this.ngOnInit();
+       }
+     }
+   }
 
   ngOnDestroy() {
     if (this.instance) {
